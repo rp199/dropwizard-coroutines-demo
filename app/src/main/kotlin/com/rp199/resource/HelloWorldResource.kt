@@ -9,15 +9,11 @@ import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.container.AsyncResponse
 import jakarta.ws.rs.container.Suspended
 import jakarta.ws.rs.core.MediaType
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.future.future
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.concurrent.CompletionStage
-import java.util.concurrent.Executors
 import kotlin.coroutines.cancellation.CancellationException
 
 @Path("/hello-world")
@@ -27,8 +23,11 @@ class HelloWorldResource(
     private val asyncResponseScope: CoroutineScope,
     private val suspendingService: SuspendingService,
 ) {
-    private val executor = Executors.newCachedThreadPool()
 
+    /**
+     * Blocking approach: Wraps the call with [runBlocking], which blocks the HTTP thread until the work is done.
+     * Not ideal in an async framework as it prevents the server from handling other requests concurrently.
+     */
     @GET
     @Path("/blocking")
     fun getBlocking(): String {
@@ -38,19 +37,26 @@ class HelloWorldResource(
         return "Hello from blocking!"
     }
 
+    /**
+     * Uses a dedicated [asyncResponseScope] to offload the work by converting the coroutine to a [CompletionStage] via the `future` extension.
+     * This approach delegates most of the complexity to the framework and handles coroutine completion and cancellation automatically.
+     */
     @GET
-    @Path("/async")
-    fun getAsync(
-        @Suspended asyncResponse: AsyncResponse
-    ) {
-        executor.submit {
-            suspendingService.doWorkBlocking()
-            asyncResponse.resume("Hello from the async!")
+    @Path("/coroutines-using-future")
+    fun getCoroutine(): CompletionStage<String> {
+        return asyncResponseScope.future {
+            suspendingService.doWork()
+            "Hello from the coroutine using futures!"
         }
     }
 
+    /**
+     * Uses a dedicated [asyncResponseScope] to launch a coroutine per request and manually resume the [AsyncResponse] when the work is done.
+     * Requires explicit handling of errors, timeouts, and coroutine cancellation if the client disconnects or the request times out.
+     * Useful when fine-grain control over request lifecycle and error handling is needed.
+     */
     @GET
-    @Path("/coroutine-async-response")
+    @Path("/coroutine-using-async-response")
     fun getCoroutine(@Suspended async: AsyncResponse) {
         val job = asyncResponseScope.launch {
             try {
@@ -70,15 +76,6 @@ class HelloWorldResource(
         async.setTimeoutHandler {
             job.cancel()
             async.resume(WebApplicationException(503))
-        }
-    }
-
-    @GET
-    @Path("/coroutine-future")
-    fun getCoroutine(): CompletionStage<String> {
-        return asyncResponseScope.future {
-            suspendingService.doWork()
-            "Hello from the coroutine using futures!"
         }
     }
 }

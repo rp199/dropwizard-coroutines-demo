@@ -13,5 +13,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("com.rp199.app.AppKt")
+    mainClass.set("com.rp199.AppKt")
 }
