@@ -1,0 +1,4 @@
+server:
+  type: default
+  minThreads: 4
+  maxThreads: 4

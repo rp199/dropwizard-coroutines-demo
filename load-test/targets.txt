@@ -1,0 +1,3 @@
+GET http://localhost:8080/hello-world/coroutines-using-future
+GET http://localhost:8080/hello-world/coroutine-using-async-response
+GET http://localhost:8080/hello-world/blocking

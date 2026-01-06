@@ -4,9 +4,10 @@
 package com.rp199
 
 import com.fasterxml.jackson.module.kotlin.kotlinModule
-import com.rp199.resource.HelloWorldResource
 import com.rp199.configuration.AppConfig
+import com.rp199.resource.HelloWorldResource
 import com.rp199.service.SuspendingService
+import io.dropwizard.configuration.ResourceConfigurationSourceProvider
 import io.dropwizard.core.Application
 import io.dropwizard.core.setup.Bootstrap
 import io.dropwizard.core.setup.Environment
@@ -17,12 +18,13 @@ import kotlinx.coroutines.SupervisorJob
 
 
 fun main(args: Array<String>) {
-    App().run("server")
+    App().run("server", "/config.yaml")
 }
 
 class App : Application<AppConfig>() {
 
     override fun initialize(bootstrap: Bootstrap<AppConfig>) {
+        bootstrap.configurationSourceProvider = ResourceConfigurationSourceProvider()
         bootstrap.objectMapper.registerModule(kotlinModule())
         super.initialize(bootstrap)
     }
