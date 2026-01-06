@@ -1,0 +1,44 @@
+[versions]
+kotlin = "2.3.0"
+kotlinx = "1.10.2"
+logback = "1.5.23"
+kotest = "6.0.7"
+mockk = "1.14.7"
+
+[libraries]
+# kotlin
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx" }
+
+# logging
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logstash-logback-encoder = { module = "net.logstash.logback:logstash-logback-encoder", version = "9.0" }
+janino = { module = "org.codehaus.janino:janino", version = "3.1.12" }
+
+
+# Test
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+kotest-json = { module = "io.kotest:kotest-assertions-json", version.ref = "kotest" }
+mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
+kotest-testclock = { module = "io.kotest.extensions:kotest-extensions-clock", version = "1.0.0" }
+
+[bundles]
+logging = [
+    "logback-classic",
+    "logstash-logback-encoder",
+    "janino",
+]
+
+test = [
+    "kotest-runner-junit5",
+    "kotest-assertions-core",
+    "kotest-property",
+    "kotest-json",
+    "mockk-core",
+    "kotest-testclock"
+]
+
+[plugins]
+kotlin-serilization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

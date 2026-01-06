@@ -1,0 +1,23 @@
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>datetime</fieldName>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <threadName/>
+                <loggerName/>
+                <logLevel/>
+                <message/>
+                <mdc/>
+                <stackTrace/>
+            </providers>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="Console"/>
+    </root>
+
+</configuration>
