@@ -6,10 +6,14 @@ package com.rp199
 import com.fasterxml.jackson.module.kotlin.kotlinModule
 import com.rp199.resource.HelloWorldResource
 import com.rp199.configuration.AppConfig
+import com.rp199.service.SuspendingService
 import io.dropwizard.core.Application
 import io.dropwizard.core.setup.Bootstrap
 import io.dropwizard.core.setup.Environment
 import io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 
 fun main(args: Array<String>) {
@@ -23,7 +27,9 @@ class App : Application<AppConfig>() {
         super.initialize(bootstrap)
     }
     override fun run(config: AppConfig, environment: Environment) {
-        val resource = HelloWorldResource()
+        val service = SuspendingService()
+        val asyncScope  = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        val resource = HelloWorldResource(asyncScope, service)
         environment.jersey().register(resource)
         environment.jersey().register(JsonProcessingExceptionMapper(true))
     }

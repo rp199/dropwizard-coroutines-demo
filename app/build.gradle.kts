@@ -6,6 +6,7 @@ dependencies {
     implementation(libs.bundles.logging)
     implementation(libs.dropwizard.core)
     implementation(libs.jackson.kotlin)
+    implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.bundles.test)
 }
