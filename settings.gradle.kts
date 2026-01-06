@@ -3,7 +3,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "kotlin-template"
+rootProject.name = "dropwizard-coroutines-demo"
 
 includeDirectory("app")
 includeDirectory("libraries")

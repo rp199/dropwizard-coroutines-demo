@@ -1,4 +1,4 @@
-![check](https://github.com/rp199/kotlin-template/actions/workflows/check.yml/badge.svg)
+![check](https://github.com/rp199/dropwizard-coroutines-demo/actions/workflows/check.yml/badge.svg)
 
 # Kotlin Template
 

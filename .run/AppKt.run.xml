@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="AppKt" type="JetRunConfigurationType" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="com.rp199.template.AppKt" />
-    <module name="kotlin-template.app.main" />
+    <option name="MAIN_CLASS_NAME" value="com.rp199.AppKt" />
+    <module name="dropwizard-coroutines-demo.app.main" />
     <shortenClasspath name="NONE" />
     <extension name="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />

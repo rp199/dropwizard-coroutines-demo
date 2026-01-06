@@ -1,20 +1,26 @@
 [versions]
+dropwizard = "5.0.0"
 kotlin = "2.3.0"
 kotlinx = "1.10.2"
 logback = "1.5.23"
 kotest = "6.0.7"
 mockk = "1.14.7"
+jackson="2.19.4"
 
 [libraries]
 # kotlin
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx" }
 
+# dropwizard
+dropwizard-core = { module ="io.dropwizard:dropwizard-core", version.ref = "dropwizard"}
+
 # logging
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logstash-logback-encoder = { module = "net.logstash.logback:logstash-logback-encoder", version = "9.0" }
 janino = { module = "org.codehaus.janino:janino", version = "3.1.12" }
 
+jackson-kotlin = {module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson"}
 
 # Test
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }

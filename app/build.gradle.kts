@@ -4,7 +4,8 @@ plugins {
 
 dependencies {
     implementation(libs.bundles.logging)
-    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.dropwizard.core)
+    implementation(libs.jackson.kotlin)
 
     testImplementation(libs.bundles.test)
 }
