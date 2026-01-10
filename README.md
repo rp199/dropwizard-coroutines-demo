@@ -6,6 +6,8 @@ This is a simple [Dropwizard](https://www.dropwizard.io/en/stable/) project demo
 
 For examples, see [HelloWorldResource](app/src/main/kotlin/com/rp199/resource/HelloWorldResource.kt).
 
+Developed in the context of the Coroutine Mastery Course by [kt.academy](https://kt.academy/).
+
 ## How to run
 
 To start the application, run:
